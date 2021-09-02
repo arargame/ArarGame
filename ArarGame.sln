@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
 VisualStudioVersion = 16.0.30523.141
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ArarGame", "ArarGame\ArarGame.csproj", "{01AF7770-5FB6-488D-82D7-BEB897DA1434}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "ArarGame\Core.csproj", "{01AF7770-5FB6-488D-82D7-BEB897DA1434}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "XUnitTest", "XUnitTest\XUnitTest.csproj", "{5E35E357-4BDB-41D1-BF8F-BF3E69C1AE81}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{01AF7770-5FB6-488D-82D7-BEB897DA1434}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{01AF7770-5FB6-488D-82D7-BEB897DA1434}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{01AF7770-5FB6-488D-82D7-BEB897DA1434}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5E35E357-4BDB-41D1-BF8F-BF3E69C1AE81}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5E35E357-4BDB-41D1-BF8F-BF3E69C1AE81}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5E35E357-4BDB-41D1-BF8F-BF3E69C1AE81}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5E35E357-4BDB-41D1-BF8F-BF3E69C1AE81}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
