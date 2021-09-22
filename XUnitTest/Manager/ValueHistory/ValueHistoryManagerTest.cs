@@ -3,20 +3,19 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using Xunit;
+using XUnitTest.Models;
 
 namespace XUnitTest.Manager.ValueHistory
 {
     public class ValueHistoryManagerTest
     {
-        public class TestObject
-        {
-            public string Name { get; set; }
-        }
-
         [Fact]
-        public void ObjectHasChanged()
+        public void ValueHistoryManager_HasChangedForObject()
         {
-            var to = new TestObject();
+            var to = new TestObject()
+            {
+                Name = "Name0"
+            };
 
             var valueHistoryManager = new ValueHistoryManager();
 
@@ -24,7 +23,19 @@ namespace XUnitTest.Manager.ValueHistory
 
             to.Name = "Name1";
 
-            Assert.True(valueHistoryManager.HasChangedFor(to));
+            var isChanged = valueHistoryManager.HasChangedFor(to);
+
+            Assert.True(isChanged);
+
+            to.Name = "Name2";
+
+            isChanged = valueHistoryManager.HasChangedFor(to);
+
+            Assert.True(isChanged);
+
+            isChanged = valueHistoryManager.HasChangedFor(to);
+
+            Assert.True(!isChanged);
         }
     }
 }
