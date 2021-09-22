@@ -2,6 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
+    <PackageId>ArarGame.ValueHistoryManagement</PackageId>
+    <Authors>Koray Arar</Authors>
+    <Company>Arar Game</Company>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <RepositoryUrl>https://github.com/arargame/ValueHistoryManagement</RepositoryUrl>
   </PropertyGroup>
 
 </Project>
