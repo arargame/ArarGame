@@ -1,7 +1,4 @@
 ﻿using Core.Manager.ValueHistory;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using Xunit;
 using XUnitTest.Models;
 
