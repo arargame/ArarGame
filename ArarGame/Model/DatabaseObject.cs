@@ -1,10 +1,10 @@
-﻿using Core.Model.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace Core.Model
+﻿namespace Core.Model
 {
+    public interface IDbObject
+    {
+        public string[] Includes { get; }
+    }
+
     public abstract class DatabaseObject : BaseObject, IDbObject
     {
         public virtual string[] Includes

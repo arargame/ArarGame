@@ -15,6 +15,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ArarGame\Core.csproj" />
+    <ProjectReference Include="..\FileManagement\FileManagement.csproj" />
     <ProjectReference Include="..\ValueHistoryManagement\ValueHistoryManagement.csproj" />
   </ItemGroup>
 

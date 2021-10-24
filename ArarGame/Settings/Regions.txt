@@ -1,0 +1,42 @@
+﻿        #region Properties
+
+
+
+        #endregion
+
+        #region Collections
+
+
+
+        #endregion
+
+        #region CalculatedProperties
+
+
+
+
+        #endregion
+
+        #region Constructor
+
+
+
+        #endregion
+
+        #region SetFunctions
+
+
+
+        #endregion
+
+        #region Functions
+
+
+
+        #endregion
+
+        #region StaticFunctions
+
+
+
+        #endregion
