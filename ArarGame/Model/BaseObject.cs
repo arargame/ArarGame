@@ -82,46 +82,6 @@ namespace Core.Model
 
         #region Functions
 
-        public virtual void Add<T2>(List<T2> collection, Expression<List<T2>> expression,bool twoWayBinding = true)  where T2 : IBaseObject
-        {
-            List<T2> listProperty = null;
-
-            var member = (expression.Body as MemberExpression).Member;
-
-            var collectionProperty = GetType().GetProperties().FirstOrDefault(p => p.Name == member.Name);
-
-            collectionProperty.PropertyType.GetMethod("AddRange").Invoke(collectionProperty.GetValue(this), new object[] { collection });
-
-            //if (expression != null)
-            //{
-            //    listProperty = expression.Compile().Invoke((T1)this);
-
-            //    listProperty.AddRange(collection);
-            //}
-            //else
-            //{
-            //    var collectionProperty = GetType().GetProperties().FirstOrDefault(p => p.PropertyType.FullName == typeof(List<T2>).FullName);
-
-            //    if (collectionProperty == null)
-            //        return;
-
-            //    collectionProperty.PropertyType.GetMethod("AddRange").Invoke(collectionProperty.GetValue(this), new object[] { collection });
-            //}
-
-            if (!twoWayBinding)
-                return;
-
-            foreach (var item in collection)
-            {
-                //var navigationProperty = item.GetType().GetProperties().FirstOrDefault(p => p.DeclaringType.Name == typeof(T1).Name);
-
-                //if (navigationProperty == null)
-                //    return;
-
-                //navigationProperty.SetValue(item, this);
-            }
-        }
-
         public virtual IBaseObject Initialize()
         {
             return this;

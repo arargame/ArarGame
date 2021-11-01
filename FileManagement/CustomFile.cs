@@ -11,6 +11,7 @@ namespace FileManagement
 {
     public interface ICustomFile : IBaseObject
     {
+        ICustomFile ClearData();
         byte[] Data { get; set; }
         string DataAsString { get; }
         ICustomDirectory Directory { get; set; }
@@ -31,11 +32,19 @@ namespace FileManagement
 
         string NameWithoutExtension { get; }
 
+        bool SaveAs();
+
+        bool SaveAs(string path);
+
         ICustomFile SetCustomDirectory(ICustomDirectory customDirectory);
 
         ICustomFile SetData(byte[] data);
 
         ICustomFile SetFileInfo(string pathEndsWithFile);
+
+        ICustomFile SetPathToRead(string path);
+
+        ICustomFile SetPathToWrite(string path);
     }
 
     public class CustomFile : BaseObject,ICustomFile
@@ -47,6 +56,10 @@ namespace FileManagement
         public IBaseObject Entity { get; set; }
 
         public FileInfo Info { get; set; }
+
+        public string PathToRead { get; private set; }
+
+        public string PathToWrite { get; private set; }
 
         #endregion
 
@@ -129,6 +142,13 @@ namespace FileManagement
 
         #region SetFunctions
 
+        public ICustomFile ClearData()
+        {
+            Data = null;
+
+            return this;
+        }
+
         public ICustomFile SetCustomDirectory(ICustomDirectory customDirectory)
         {
             Directory = customDirectory;
@@ -138,15 +158,20 @@ namespace FileManagement
 
         public ICustomFile SetData(byte[] data)
         {
-            Data = data;
+            if (data != null)
+                Data = data;
 
             return this;
         }
 
-        public ICustomFile SetData(string path,bool createIfNotExist = true,Action<Exception> logAction = null)
+        public ICustomFile SetData(string path = null,bool createIfNotExist = true,Action<Exception> logAction = null)
         {
             try
             {
+                SetPathToRead(path);
+
+                SetPathToWrite(path);
+
                 if (createIfNotExist)
                     CreateNewFileIfNotExists(path, logAction);
 
@@ -172,6 +197,22 @@ namespace FileManagement
             return this;
         }
 
+        public ICustomFile SetPathToRead(string path)
+        {
+            if (!string.IsNullOrEmpty(path))
+                PathToRead = path;
+
+            return this;
+        }
+
+        public ICustomFile SetPathToWrite(string path)
+        {
+            if (!string.IsNullOrEmpty(path))
+                PathToWrite = path;
+
+            return this;
+        }
+
         public new ICustomFile SetName(string name)
         {
             return (ICustomFile)base.SetName(name);
@@ -181,7 +222,24 @@ namespace FileManagement
 
         #region Functions
 
+        public bool SaveAs()
+        {
+            return WriteAllBytes(PathToWrite,Data);
+        }
 
+        public bool SaveAs(string path)
+        {
+            return WriteAllBytes(path,Data);
+        }
+
+        public bool WriteAllBytes(string path = null, byte[] data = null)
+        {
+            SetPathToWrite(path);
+
+            SetData(data);
+
+            return WriteAllBytes(PathToWrite, data, LogAction);
+        }
 
         #endregion
 

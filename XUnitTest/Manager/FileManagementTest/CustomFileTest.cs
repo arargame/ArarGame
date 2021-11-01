@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Core.Model;
 using FileManagement;
+using FileManagement.Utils;
 using Xunit;
 
 namespace XUnitTest.Manager.FileManagementTest
@@ -14,11 +15,15 @@ namespace XUnitTest.Manager.FileManagementTest
         public string FileName { get; set; }
 
         public string Path { get; set; }
+
+        public string WordToWrite { get; set; }
         public CustomFileTest()
         {
             FileName = "test.txt";
 
             Path = CustomDirectory.CombinePaths(CustomDirectory.CurrentProjectBinPath, FileName);
+
+            WordToWrite = "Neque porro quisquam est qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit...";
         }
 
         [Fact]
@@ -32,19 +37,59 @@ namespace XUnitTest.Manager.FileManagementTest
         }
 
         [Fact]
-        public void OpenFileWithEmptyConstructor()
+        public ICustomFile CreateCustomFileFromPath()
         {
             var file = CustomFile.CreateFromPath(Path);
 
-            var directory2 = new CustomDirectory();
+            Assert.NotNull(file);
 
-            directory2.Add(collection: new List<ICustomFile>() { file},expression: directory2.Files);
+            return file;
+        }
 
-            var directory = new CustomDirectory().Add<CustomDirectory,CustomFile,ICustomDirectory,ICustomFile>(new List<ICustomFile>() { file },cd=>cd.Files,cf=>cf.Directory);
-
-            //new CustomDirectory().Add<CustomDirectory, CustomFile>(new List<ICustomFile>() { file }, c => c.Files, c => c.Directory);
+        [Fact]
+        public void CreateCustomFileWithEmptyConstructorUsingPath()
+        {
+            var file = new CustomFile().SetData(Path);
 
             Assert.NotNull(file);
+        }
+
+        [Fact]
+        public void CreateCustomFileWithEmptyConstructorUsingData()
+        {
+            var data = Helper.StringToByteArray(WordToWrite);
+
+            var file = new CustomFile().SetData(data);
+
+            Assert.NotNull(file);
+        }
+
+        [Fact]
+        public void SaveAs()
+        {
+            var file = CreateCustomFileFromPath();
+
+            var data = Helper.StringToByteArray(WordToWrite + Guid.NewGuid());
+
+            file.SetData(data);
+
+            Assert.True(file.SaveAs());
+        }
+
+        [Fact]
+        public void SaveAsWithPath()
+        {
+            var file = CreateCustomFileFromPath();
+
+            var data = Helper.StringToByteArray(WordToWrite + Guid.NewGuid());
+
+            file.SetData(data);
+
+            var newPath = CustomDirectory.CombinePaths(CustomDirectory.CurrentProjectBinPath,"newfiletest.txt");
+
+            file.SetPathToWrite(newPath);
+
+            Assert.True(file.SaveAs());
         }
     }
 }
