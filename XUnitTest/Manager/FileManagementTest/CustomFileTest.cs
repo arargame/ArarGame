@@ -91,5 +91,29 @@ namespace XUnitTest.Manager.FileManagementTest
 
             Assert.True(file.SaveAs());
         }
+
+        [Fact]
+        public void ZipUnZipTest()
+        {
+            var path = CustomDirectory.CombinePaths(CustomDirectory.CurrentProjectBinPath,"Files/Musics/sample.mp3");
+
+            var file = CustomFile.CreateFromPath(path);
+
+            var lengthAsMbBeforeZipped = file.LengthAsMb;
+
+            file.Zip();
+
+            var lengthAsMbAfterZipped = file.LengthAsMb;
+
+            Assert.True(lengthAsMbAfterZipped < lengthAsMbBeforeZipped);
+
+            file.UnZip();
+
+            var lengthAsMbAfterUnZipped = file.LengthAsMb;
+
+            Assert.True(lengthAsMbAfterUnZipped>lengthAsMbAfterZipped);
+
+            Assert.True(lengthAsMbAfterUnZipped == lengthAsMbBeforeZipped);
+        }
     }
 }

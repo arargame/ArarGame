@@ -37,6 +37,10 @@ namespace FileManagement
 
         bool SaveAs(string path);
 
+        public ICustomFile Zip();
+
+        public ICustomFile UnZip();
+
         ICustomFile SetCustomDirectory(ICustomDirectory customDirectory);
 
         ICustomFile SetData(byte[] data);
@@ -118,7 +122,7 @@ namespace FileManagement
         {
             get 
             {
-                return Convert.ToDouble(string.Format("{0:0.0000}", (double)Info.Length));
+                return Convert.ToDouble(string.Format("{0:0.0000}", (double)(Data != null ? Data.Length : Info.Length)));
             }
         }
 
@@ -242,14 +246,14 @@ namespace FileManagement
             return WriteAllBytes(PathToWrite, data, LogAction);
         }
 
-        public byte[] Zip()
+        public ICustomFile Zip()
         {
-            return Helper.Compress(Data);
+            return SetData(Helper.Compress(Data, LogAction));
         }
 
-        public byte[] UnZip()
+        public ICustomFile UnZip()
         {
-            return Helper.Decompress(Data);
+            return SetData(Helper.Decompress(Data, LogAction));
         }
 
         #endregion

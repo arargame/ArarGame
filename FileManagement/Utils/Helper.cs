@@ -15,54 +15,71 @@ namespace FileManagement.Utils
             return encoding.GetString(data);
         }
 
-        public static byte[] Compress(string text)
+        public static byte[] Compress(string text, Action<Exception> logAction = null)
         {
             var bytes = Encoding.UTF8.GetBytes(text);
 
-            return Compress(bytes);
+            return Compress(bytes, logAction);
         }
 
-        public static byte[] Compress(byte[] raw)
+        public static byte[] Compress(byte[] raw, Action<Exception> logAction = null)
         {
-            using (MemoryStream memory = new MemoryStream())
+            try
             {
-                using (GZipStream gzip = new GZipStream(memory,
-                    CompressionMode.Compress, true))
-                {
-                    gzip.Write(raw, 0, raw.Length);
-                }
-
-                return memory.ToArray();
-            }
-        }
-
-        public static byte[] Decompress(byte[] gzip)
-        {
-            using (GZipStream stream = new GZipStream(new MemoryStream(gzip),
-                CompressionMode.Decompress))
-            {
-                const int size = 4096;
-
-                byte[] buffer = new byte[size];
-
                 using (MemoryStream memory = new MemoryStream())
                 {
-                    int count = 0;
-
-                    do
+                    using (GZipStream gzip = new GZipStream(memory,
+                        CompressionMode.Compress, true))
                     {
-                        count = stream.Read(buffer, 0, size);
-
-                        if (count > 0)
-                        {
-                            memory.Write(buffer, 0, count);
-                        }
+                        gzip.Write(raw, 0, raw.Length);
                     }
-                    while (count > 0);
 
                     return memory.ToArray();
                 }
             }
+            catch (Exception ex)
+            {
+                logAction?.Invoke(ex);
+            }
+
+            return null;
+        }
+
+        public static byte[] Decompress(byte[] gzip, Action<Exception> logAction = null)
+        {
+            try
+            {
+                using (GZipStream stream = new GZipStream(new MemoryStream(gzip),CompressionMode.Decompress))
+                {
+                    const int size = 4096;
+
+                    byte[] buffer = new byte[size];
+
+                    using (MemoryStream memory = new MemoryStream())
+                    {
+                        int count = 0;
+
+                        do
+                        {
+                            count = stream.Read(buffer, 0, size);
+
+                            if (count > 0)
+                            {
+                                memory.Write(buffer, 0, count);
+                            }
+                        }
+                        while (count > 0);
+
+                        return memory.ToArray();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                logAction?.Invoke(ex);
+            }
+
+            return null;
         }
     }
 }

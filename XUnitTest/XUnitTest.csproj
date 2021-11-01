@@ -19,4 +19,14 @@
     <ProjectReference Include="..\ValueHistoryManagement\ValueHistoryManagement.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Files\Musics\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="Files\Musics\sample.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+  </ItemGroup>
+
 </Project>
