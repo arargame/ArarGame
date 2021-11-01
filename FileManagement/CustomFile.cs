@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using Core.Model;
 using FileManagement.Utils;
@@ -239,6 +240,16 @@ namespace FileManagement
             SetData(data);
 
             return WriteAllBytes(PathToWrite, data, LogAction);
+        }
+
+        public byte[] Zip()
+        {
+            return Helper.Compress(Data);
+        }
+
+        public byte[] UnZip()
+        {
+            return Helper.Decompress(Data);
         }
 
         #endregion
