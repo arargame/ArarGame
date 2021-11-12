@@ -13,6 +13,7 @@ namespace FileManagement
 {
     public interface ICustomDirectory: IBaseObject
     {
+        string Text { get; set; }
         List<ICustomFile> Files { get; set; }
     }
 
@@ -20,6 +21,7 @@ namespace FileManagement
     {
         #region Properties
 
+        public string Text { get; set; }
 
         #endregion
 
@@ -75,10 +77,11 @@ namespace FileManagement
         }
 
 
-
-        public new ICustomDirectory SetText(string text)
+        public ICustomDirectory SetText(string text)
         {
-            return (ICustomDirectory)base.SetText(text);
+            Text = text;
+
+            return this;
         }
 
         #endregion
@@ -107,7 +110,7 @@ namespace FileManagement
         {
             var list = new List<string>();
 
-            foreach (string file in Directory.GetFiles(path))
+            foreach (var file in Directory.GetFiles(path))
             {
                 list.Add(file);
             }

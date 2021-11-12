@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Text.Json;
 
@@ -11,7 +12,7 @@ namespace Core.Utils
     {
         public static T Deserialize<T>(string jsonString, Action<Exception> logAction = null)
         {
-            T t = default(T);
+            var t = default(T);
 
             try
             {
@@ -23,6 +24,36 @@ namespace Core.Utils
             }
 
             return t;
+        }
+
+        public static PropertyInfo? GetPropertyOf(Type type,string propertyName)
+        {
+            return type.GetProperty(propertyName);
+        }
+
+        public static PropertyInfo? GetPropertyOf<T>(string propertyName) where T : class
+        {
+            return typeof(T).GetProperty(propertyName);
+        }
+
+        public static PropertyInfo[] GetPropertiesOf(Type type,BindingFlags bindingFlags = BindingFlags.Default, Action<Exception> logAction = null)
+        {
+            try
+            {
+                return type.GetProperties(bindingFlags);
+            }
+            catch (Exception ex)
+            {
+                logAction?.Invoke(ex);
+            }
+
+            return null;
+        }
+
+
+        public static PropertyInfo[] GetPropertiesOf<T>(BindingFlags bindingFlags = BindingFlags.Default, Action<Exception> logAction = null) where T : class
+        {
+            return GetPropertiesOf(typeof(T), bindingFlags, logAction);
         }
 
         public static string Serialize(object value, Action<Exception> logAction = null)
@@ -62,7 +93,7 @@ namespace Core.Utils
 
             try
             {
-                encoding = encoding ?? Encoding.UTF8;
+                encoding ??= Encoding.UTF8;
 
                 array = encoding.GetBytes(value);
             }

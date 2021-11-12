@@ -10,7 +10,7 @@ namespace FileManagement.Utils
     {
         public static string ByteArrayToString(byte[] data, Encoding encoding = null)
         {
-            encoding = encoding ?? Encoding.UTF8;
+            encoding ??= Encoding.UTF8;
 
             return encoding.GetString(data);
         }
@@ -26,9 +26,9 @@ namespace FileManagement.Utils
         {
             try
             {
-                using (MemoryStream memory = new MemoryStream())
+                using (var memory = new MemoryStream())
                 {
-                    using (GZipStream gzip = new GZipStream(memory,
+                    using (var gzip = new GZipStream(memory,
                         CompressionMode.Compress, true))
                     {
                         gzip.Write(raw, 0, raw.Length);
@@ -49,15 +49,15 @@ namespace FileManagement.Utils
         {
             try
             {
-                using (GZipStream stream = new GZipStream(new MemoryStream(gzip),CompressionMode.Decompress))
+                using (var stream = new GZipStream(new MemoryStream(gzip),CompressionMode.Decompress))
                 {
                     const int size = 4096;
 
-                    byte[] buffer = new byte[size];
+                    var buffer = new byte[size];
 
-                    using (MemoryStream memory = new MemoryStream())
+                    using (var memory = new MemoryStream())
                     {
-                        int count = 0;
+                        var count = 0;
 
                         do
                         {

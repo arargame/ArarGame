@@ -1,17 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using Core.Model;
 
 namespace XUnitTest.Models
 {
-    public class TestObject
+    public class TestObject : BaseObject
     {
-        public Guid Id { get; set; }
-        public string Name { get; set; }
-
         public TestObject()
         {
-            Id = Guid.NewGuid();
+            SetId(Guid.NewGuid());
         }
     }
 }

@@ -267,10 +267,7 @@ namespace FileManagement
                 
                 if (!FileExists(path))
                 {
-                    using (FileStream fs = File.Create(path))
-                    {
-
-                    }
+                    using var fs = File.Create(path);
                 }
             }
             catch (UnauthorizedAccessException ex)

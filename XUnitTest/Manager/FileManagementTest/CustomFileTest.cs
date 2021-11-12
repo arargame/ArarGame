@@ -115,5 +115,19 @@ namespace XUnitTest.Manager.FileManagementTest
 
             Assert.True(lengthAsMbAfterUnZipped == lengthAsMbBeforeZipped);
         }
+
+        [Fact]
+        public void IsolatedStorageTest()
+        {
+            var file = CreateCustomFileFromPath();
+
+            var isolatedStorage = new IsolatedStorage(file.Name);
+
+            var isolatedStoragePath = isolatedStorage.IsolatedStoragePath;
+
+            file.SetPathToWrite(isolatedStoragePath);
+
+            Assert.True(file.SaveAs());
+        }
     }
 }

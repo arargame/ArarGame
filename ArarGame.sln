@@ -9,7 +9,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "XUnitTest", "XUnitTest\XUni
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValueHistoryManagement", "ValueHistoryManagement\ValueHistoryManagement.csproj", "{995F6957-2C28-456A-8A18-8EF3F296D7A3}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "FileManagement", "FileManagement\FileManagement.csproj", "{56559B76-E61D-49B9-87CB-E355EAEBFEDF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileManagement", "FileManagement\FileManagement.csproj", "{56559B76-E61D-49B9-87CB-E355EAEBFEDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogManagement", "LogManagement\LogManagement.csproj", "{C16F6CB9-CC6B-4E81-AA0C-A1724AD196E2}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailManagement", "MailManagement\MailManagement.csproj", "{BAB3D87B-2B65-4431-8FE8-C916EB67006E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewManagement", "ViewManagement\ViewManagement.csproj", "{4458294C-6B13-434F-9759-A0F643758CDF}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +39,18 @@ Global
 		{56559B76-E61D-49B9-87CB-E355EAEBFEDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56559B76-E61D-49B9-87CB-E355EAEBFEDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56559B76-E61D-49B9-87CB-E355EAEBFEDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C16F6CB9-CC6B-4E81-AA0C-A1724AD196E2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C16F6CB9-CC6B-4E81-AA0C-A1724AD196E2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C16F6CB9-CC6B-4E81-AA0C-A1724AD196E2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C16F6CB9-CC6B-4E81-AA0C-A1724AD196E2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAB3D87B-2B65-4431-8FE8-C916EB67006E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAB3D87B-2B65-4431-8FE8-C916EB67006E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAB3D87B-2B65-4431-8FE8-C916EB67006E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAB3D87B-2B65-4431-8FE8-C916EB67006E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4458294C-6B13-434F-9759-A0F643758CDF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4458294C-6B13-434F-9759-A0F643758CDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4458294C-6B13-434F-9759-A0F643758CDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4458294C-6B13-434F-9759-A0F643758CDF}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
+using System.Reflection;
 using System.Text.Json;
 using Core.Utils;
 
@@ -9,19 +10,30 @@ namespace Core.Model
 {
     public interface IBaseObject
     {
-        public Guid Id { get; set; }
+        Guid Id { get; set; }
 
-        public string Name { get; set; }
+        string Name { get; set; }
 
-        public string Description { get; set; }
+        string Description { get; set; }
 
-        public DateTime AddedDate { get; set; }
+        DateTime AddedDate { get; set; }
 
-        public DateTime ModifiedDate { get; set; }
+        DateTime ModifiedDate { get; set; }
 
         Action<Exception> LogAction { get; set; }
 
-        public IBaseObject Initialize();
+        IBaseObject Initialize();
+
+        IBaseObject SetAddedDate(DateTime dateTime);
+
+        IBaseObject SetDescription(string description);
+
+        IBaseObject SetId(Guid id);
+
+        IBaseObject SetLogAction(Action<Exception> action);
+
+        IBaseObject SetModifiedDate(DateTime dateTime);
+        IBaseObject SetName(string name);
     }
 
     public abstract class BaseObject : IBaseObject
@@ -38,16 +50,6 @@ namespace Core.Model
 
         public Action<Exception> LogAction { get; set; }
 
-        public string Text 
-        {
-            get {
-                return Description;
-            }
-            set {
-                Description = value;
-            }
-        }
-
         #region Constructor
 
         public BaseObject()
@@ -59,9 +61,35 @@ namespace Core.Model
 
         #region SetFunctions
 
-        public virtual IBaseObject SetName(string name)
+        public virtual IBaseObject Set(Expression<Func<IBaseObject, object>> property, object value)
         {
-            Name = name;
+            if (property.Body is MemberExpression)
+            {
+                var memberInfo = (property.Body as MemberExpression).Member;
+
+                SetPropertyValue(memberInfo.Name,value);
+            }
+
+            return this;
+        }
+
+        public virtual IBaseObject SetAddedDate(DateTime dateTime)
+        {
+            AddedDate = dateTime;
+
+            return this;
+        }
+
+        public virtual IBaseObject SetId(Guid id)
+        {
+            Id = id;
+
+            return this;
+        }
+
+        public virtual IBaseObject SetDescription(string description)
+        {
+            Description = description;
 
             return this;
         }
@@ -73,9 +101,16 @@ namespace Core.Model
             return this;
         }
 
-        public virtual IBaseObject SetText(string text)
+        public virtual IBaseObject SetModifiedDate(DateTime dateTime)
         {
-            Text = text;
+            ModifiedDate = dateTime;
+
+            return this;
+        }
+
+        public virtual IBaseObject SetName(string name)
+        {
+            Name = name;
 
             return this;
         }
@@ -84,8 +119,25 @@ namespace Core.Model
 
         #region Functions
 
+        public PropertyInfo? GetProperty(string propertyName)
+        {
+            return Helper.GetPropertyOf(GetType(),propertyName);
+        }
+
+        public PropertyInfo[] GetProperties(BindingFlags bindingFlags = BindingFlags.Default)
+        {
+            return Helper.GetPropertiesOf(GetType(), bindingFlags, LogAction);
+        }
+
         public virtual IBaseObject Initialize()
         {
+            return this;
+        }
+
+        public IBaseObject SetPropertyValue(string propertyName,object value)
+        {
+            GetProperty(propertyName).SetValue(this,value);
+
             return this;
         }
 

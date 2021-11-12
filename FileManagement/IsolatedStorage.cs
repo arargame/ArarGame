@@ -19,10 +19,12 @@ namespace FileManagement
         public string IsolatedStoragePath {
             get 
             {
-                return StorageFileStream.GetType()
-                                        .GetField("m_FullPath", BindingFlags.Instance | BindingFlags.NonPublic)
-                                        .GetValue(StorageFileStream)
-                                        .ToString();
+                StorageFileStream.Close();
+
+                var field = StorageFileStream.GetType()
+                                        .GetField("m_FullPath", BindingFlags.Instance | BindingFlags.NonPublic);
+
+                return field.GetValue(StorageFileStream).ToString();
             }
         }
 
@@ -37,8 +39,7 @@ namespace FileManagement
             }
             catch (Exception ex)
             {
-                if (LogAction != null)
-                    LogAction(ex);
+                LogAction?.Invoke(ex);
             }
         }
 
