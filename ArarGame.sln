@@ -11,11 +11,13 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ValueHistoryManagement", "V
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "FileManagement", "FileManagement\FileManagement.csproj", "{56559B76-E61D-49B9-87CB-E355EAEBFEDF}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LogManagement", "LogManagement\LogManagement.csproj", "{C16F6CB9-CC6B-4E81-AA0C-A1724AD196E2}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LogManagement", "LogManagement\LogManagement.csproj", "{C16F6CB9-CC6B-4E81-AA0C-A1724AD196E2}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MailManagement", "MailManagement\MailManagement.csproj", "{BAB3D87B-2B65-4431-8FE8-C916EB67006E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MailManagement", "MailManagement\MailManagement.csproj", "{BAB3D87B-2B65-4431-8FE8-C916EB67006E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ViewManagement", "ViewManagement\ViewManagement.csproj", "{4458294C-6B13-434F-9759-A0F643758CDF}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ViewManagement", "ViewManagement\ViewManagement.csproj", "{4458294C-6B13-434F-9759-A0F643758CDF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DatabaseManagement", "DatabaseManagement\DatabaseManagement.csproj", "{55E75D49-A8D8-4485-AC3C-B8ED6DEC9294}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -51,6 +53,10 @@ Global
 		{4458294C-6B13-434F-9759-A0F643758CDF}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4458294C-6B13-434F-9759-A0F643758CDF}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4458294C-6B13-434F-9759-A0F643758CDF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55E75D49-A8D8-4485-AC3C-B8ED6DEC9294}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55E75D49-A8D8-4485-AC3C-B8ED6DEC9294}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55E75D49-A8D8-4485-AC3C-B8ED6DEC9294}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55E75D49-A8D8-4485-AC3C-B8ED6DEC9294}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

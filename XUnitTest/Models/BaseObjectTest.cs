@@ -17,7 +17,7 @@ namespace XUnitTest.Models
 
             var name = "SampleName";
 
-            to.Set(t => t.Name, name); 
+            to.Set<TestObject>(t => t.Name, name); 
 
             Assert.Equal(to.Name, name);
         }

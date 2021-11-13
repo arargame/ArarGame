@@ -22,6 +22,9 @@ namespace Core.Model
 
         Action<Exception> LogAction { get; set; }
 
+        PropertyInfo? GetProperty(string propertyName);
+
+        PropertyInfo[] GetProperties();
         IBaseObject Initialize();
 
         IBaseObject SetAddedDate(DateTime dateTime);
@@ -61,7 +64,7 @@ namespace Core.Model
 
         #region SetFunctions
 
-        public virtual IBaseObject Set(Expression<Func<IBaseObject, object>> property, object value)
+        public virtual T Set<T>(Expression<Func<T, object>> property, object value) where T : IBaseObject
         {
             if (property.Body is MemberExpression)
             {
@@ -70,7 +73,7 @@ namespace Core.Model
                 SetPropertyValue(memberInfo.Name,value);
             }
 
-            return this;
+            return (T)(IBaseObject)this;
         }
 
         public virtual IBaseObject SetAddedDate(DateTime dateTime)
@@ -124,9 +127,9 @@ namespace Core.Model
             return Helper.GetPropertyOf(GetType(),propertyName);
         }
 
-        public PropertyInfo[] GetProperties(BindingFlags bindingFlags = BindingFlags.Default)
+        public PropertyInfo[] GetProperties()
         {
-            return Helper.GetPropertiesOf(GetType(), bindingFlags, LogAction);
+            return Helper.GetPropertiesOf(GetType(), LogAction);
         }
 
         public virtual IBaseObject Initialize()
