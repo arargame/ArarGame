@@ -7,14 +7,19 @@ using Core.Model;
 
 namespace DatabaseManagement
 {
-    public interface IRow : IBaseObject
+    public interface IFilter : IBaseObject
     {
-        List<IColumn> Columns { get; set; }
+        List<IFilterParameter> Parameters { get; set; }
 
-        IRow SetColumns(params IColumn[] columns);
+        IFilter SetParameters(params IFilterParameter[] parameters);
     }
-    
-    public class Row : BaseObject,IRow
+
+    public interface IJoinFilter : IFilter
+    {
+
+    }
+
+    public class Filter : BaseObject, IFilter
     {
         #region Properties
 
@@ -24,7 +29,7 @@ namespace DatabaseManagement
 
         #region Collections
 
-        public List<IColumn> Columns { get; set; }
+        public List<IFilterParameter> Parameters { get; set; }
 
         #endregion
 
@@ -37,20 +42,17 @@ namespace DatabaseManagement
 
         #region Constructor
 
-        public Row()
-        {
 
-        }
 
         #endregion
 
         #region SetFunctions
 
-        public IRow SetColumns(params IColumn[] columns)
+        public IFilter SetParameters(params IFilterParameter[] parameters)
         {
-            Columns = columns.ToList();
+            Parameters.AddRange(parameters);
 
-            Columns.ForEach(c => c.SetRow(this));
+            Parameters.ForEach(p => p.SetFilter(this));
 
             return this;
         }

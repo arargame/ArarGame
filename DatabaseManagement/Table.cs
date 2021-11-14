@@ -1,14 +1,26 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Linq.Expressions;
 using Core.Model;
 
 namespace DatabaseManagement
 {
     public interface ITable : IDatabaseObject
     {
+        IClassInfo ClassInfo { get; set; }
+
         List<IMetaColumn> MetaColumns { get; set; }
 
         List<IJoinTable> JoinTables { get; set; }
+
+        List<IRow> Rows { get; set; }
+
+        public ITable SetMetaColumns(params IMetaColumn[] columns);
+
+        public ITable SetJoinTables(params IJoinTable[] joinTables);
+
+        public ITable SetJoinTables(Expression<Func<Table, List<JoinTable>>> expression);
     }
 
     public interface IJoinTable : ITable
@@ -22,7 +34,7 @@ namespace DatabaseManagement
     {
         #region Properties
 
-
+        public IClassInfo ClassInfo { get; set; }
 
         #endregion
 
@@ -31,6 +43,8 @@ namespace DatabaseManagement
         public List<IMetaColumn> MetaColumns { get; set; }
 
         public List<IJoinTable> JoinTables { get; set; }
+
+        public List<IRow> Rows { get; set; }
 
         #endregion
 
@@ -59,13 +73,36 @@ namespace DatabaseManagement
 
         #region SetFunctions
 
-        public ITable LoadJoinTables(List<JoinTable> joinTables)
+        public ITable SetJoinTables(params IJoinTable[] joinTables)
         {
             JoinTables.AddRange(joinTables);
+
+            foreach (var joinTable in joinTables)
+            {
+                joinTable.SetLeftTable(this);
+            }
 
             return this;
         }
 
+        public ITable SetJoinTables(Expression<Func<Table, List<JoinTable>>> expression)
+        {
+            var joinTables = expression.Compile().Invoke(this);
+
+            return SetJoinTables(joinTables.ToArray());
+        }
+
+        public ITable SetMetaColumns(params IMetaColumn[] metaColumns)
+        {
+            MetaColumns.AddRange(metaColumns);
+
+            foreach (var metaColumn in metaColumns)
+            {
+                metaColumn.SetTable(this);
+            }
+
+            return this;
+        }
 
         #endregion
 
@@ -78,6 +115,9 @@ namespace DatabaseManagement
 
             if (JoinTables == null)
                 JoinTables = new List<IJoinTable>();
+
+            if (Rows == null)
+                Rows = new List<IRow>();
 
             return base.Initialize();
         }

@@ -7,44 +7,27 @@ using Core.Model;
 
 namespace DatabaseManagement
 {
-    public interface IMetaColumn : IDatabaseObject
+    public interface IFilterParameter : IBaseObject
     {
-        ITable Table { get; set; }
-
-        bool IsSelectable { get; set; }
-
-        bool IsSelected { get; set; }
-
-        bool IsOrderable { get; set; }
-
-        bool IsOrdered { get; set; }
-
-        bool IsFilterable { get; set; }
-
-        bool IsFiltered { get; set; }
-
         IFilter Filter { get; set; }
 
-        IMetaColumn SetTable(ITable table);
-
-    }
-
-    public interface IColumn : IDatabaseObject
-    {
-        IRow Row { get; set; }
+        int Index { get; set; }
 
         object Value { get; set; }
 
-        IColumn SetRow(IRow row);
+        IFilterParameter SetFilter(IFilter filter);
 
-        IColumn SetValue(object value);
+        IFilterParameter SetIndex(int index);
+
+        IFilterParameter SetValue(object value);
     }
 
-    public class Column : DatabaseObject,IColumn
+    public class FilterParameter : BaseObject, IFilterParameter
     {
         #region Properties
 
-        public IRow Row { get; set; }
+        public IFilter Filter { get; set; }
+        public int Index { get; set; }
 
         public object Value { get; set; }
 
@@ -65,23 +48,27 @@ namespace DatabaseManagement
 
         #region Constructor
 
-        public Column()
-        {
 
-        }
 
         #endregion
 
         #region SetFunctions
 
-        public IColumn SetRow(IRow row)
+        public IFilterParameter SetFilter(IFilter filter)
         {
-            Row = row;
+            Filter = filter;
 
             return this;
         }
 
-        public IColumn SetValue(object value)
+        public IFilterParameter SetIndex(int index)
+        {
+            Index = index;
+
+            return this;
+        }
+
+        public IFilterParameter SetValue(object value)
         {
             Value = value;
 
